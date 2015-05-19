@@ -1,0 +1,61 @@
+
+/*
+ * Full-page application style
+ */
+
+body.application {
+  padding: 60px 20px 0;
+}
+body.application > .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+/*body.application div[class^="col-"] {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+body.application div[class^="col-"] div[class^="col-"] {
+  padding-left: 15px;
+  padding-right: 15px;
+}*/
+
+h3.title {
+  margin-top: 0px;  
+}
+
+div.images-container {
+  border-right: lightgray 1px solid;
+  min-height: 300px;
+  border-left: none;
+}
+
+a.list-group-item {
+  border-left: none;
+  border-right: none;
+}
+
+a.list-group-item:nth-child(1) {
+  border-top: none;
+}
+
+h3.list-group-item-heading i {
+  color: lightgray;
+  margin-left: 10px;
+}
+
+span.tag {
+  margin-right: 5px;
+}
+
+a.stop-service i {
+  margin-right: 8px;
+}
+
+h3.panel-title i {
+  margin-right: 8px;
+}
+
+h3.title i {
+  margin-right: 10px;
+  color: gray
+}

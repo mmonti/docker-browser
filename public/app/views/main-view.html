@@ -1,0 +1,82 @@
+<div class="row">
+  <ul class="breadcrumb">
+    <li class="active">Explore</li>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="col-sm-4 images-container">
+    <h3 class="title"><i class="fa fa-cube"></i>Docker Images</h3>
+    
+    <div class="" style="overflow-y: auto; height:100vh;">
+      <div class="list-group">
+        <a class="list-group-item" ng-repeat="image in images">
+          <h3 class="list-group-item-heading">
+            <span>{{ (image.RepoTags[0]).substring(0, (image.RepoTags[0]).indexOf(':')) }}</span>
+            <i class="fa" ng-class="{'fa-caret-down': currentImage, 'fa-caret-right': !currentImage}" ng-click="currentImage = !currentImage"></i>
+          </h3>
+          <div ng-show="currentImage">
+          <p><strong>ID:</strong> {{image.Id.substring(0, 50)}}...</p>
+          <p><button class="btn btn-success btn-xs">START</button></p>
+          <p class="list-group-item-text"></p>
+          <p>
+            <span class="label label-primary tag" ng-repeat="tag in image.RepoTags">{{tag}}</span>
+          </p>
+          </div>
+        </a>
+      </div>
+    </div>
+    
+  </div>
+  <div class="col-sm-5 container-container">
+    <h3 class="title"><i class="fa fa-cogs"></i>Running Containers</h3>
+    
+    <div class="list-group">
+      <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">List group item heading</h4>
+        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">List group item heading</h4>
+        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+      </a>
+    </div>
+    
+  </div>
+  <div class="col-sm-3">
+    
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-laptop"></i>System Information</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12"><strong>OS:</strong> {{info.OperatingSystem}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12"><strong>Name:</strong> {{info.Name}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12"><strong>Kernel Version:</strong> {{info.KernelVersion}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12"><strong>CPU(s):</strong> {{info.NCPU}}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12"><strong>Total Memory:</strong> {{info.MemTotal}}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Basic panel
+      </div>
+    </div>
+    
+    <h4>Docker</h4>
+    <div class="row">
+      <div class="col-sm-12"><strong>API Version:</strong> {{version.ApiVersion}}</div>
+    </div>
+  </div>
+</div>
