@@ -29,12 +29,12 @@ div.images-container {
   border-left: none;
 }
 
-a.list-group-item {
+div.list-group-item {
   border-left: none;
   border-right: none;
 }
 
-a.list-group-item:nth-child(1) {
+div.list-group-item:nth-child(1) {
   border-top: none;
 }
 

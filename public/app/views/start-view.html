@@ -1,7 +1,10 @@
 <div class="row" ng-hide="service">
   <div class="col-sm-12">
-    <div class="alert alert-warning"><p>Docker is not running</p></div>
-    <button class="btn btn-primary" ng-click="startDocker()">START</button>
+    <div class="text-center">
+      <h3><i class="text-warning fa fa-exclamation-circle" style="margin-right: 10px;"></i>Docker is not running...</h3>
+    </div>
+  </div>
+  <div class="row text-center">
+      <button class="btn btn-primary" ng-click="startDocker()">START</button>  
   </div>
 </div>
-

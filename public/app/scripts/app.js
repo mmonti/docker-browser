@@ -18,27 +18,38 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.router',
+    'ngOboe',
+    'rx'
   ])
-  .config(function ($routeProvider) {
-    
-    $routeProvider
-      .when('/', {
+  .config(function($stateProvider, $urlRouterProvider) {
+    // For any unmatched url, redirect to /state1
+    $urlRouterProvider.otherwise("/start");
+    $urlRouterProvider.when('/', "/start");
+    // Now set up the states
+    $stateProvider
+      .state('start', {
+        url: '/start',
         templateUrl: 'views/start-view.html',
         controller: 'dockerStartController'
       })
-      .when('/main', {
+      .state('main', {
+        url: '/main',
         templateUrl: 'views/main-view.html',
         controller: 'dockerMainController'
       })
-      .otherwise({
-        redirectTo: '/'
-      });
-      
-  }).run(function($rootScope, $route, $location, $interval, dockerMiscService) {
+      .state('containerDetail', {
+        url: '/container/:id',
+        templateUrl: 'views/container-detail-view.html',
+        controller: 'dockerContainerDetailController'
+      })
+      ;
+  })
+  .run(function($rootScope, $route, $location, $interval, dockerMiscService) {
       
       $rootScope.startDocker = function(params){
-        dockerMiscService.startDocker()
+        dockerMiscService.start()
         .success(function(params){
           $location.path('/main');
         })
@@ -48,7 +59,7 @@ angular
       };
       
       $rootScope.stopDocker = function(params){
-        dockerMiscService.stopDocker()
+        dockerMiscService.stop()
         .success(function(params){
           $location.path('/');  
         })
@@ -63,11 +74,15 @@ angular
           dockerMiscService.ping()
           .success(function(params){
             $rootScope.service = true;
-            if ($location.path() == '/') {
+            $rootScope.$broadcast('docker:ping:success', params);
+            
+            if ($location.path() == '/' || $location.path() == '/start') {
               $location.path('/main');
             }
           })
           .error(function(params){
+            $rootScope.$broadcast('docker:ping:error', params);
+            
             $rootScope.service = false;
             $location.path('/');
           });  

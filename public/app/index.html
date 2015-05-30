@@ -54,14 +54,14 @@
     </div>
     
     <div class="container-fluid">
-      <div ng-view=""></div>
+      <div ui-view=""></div>
     </div>
     
-    <footer class="footer">
+<!--    <footer class="footer">
       <div class="container">
         <p class="text-muted">Place sticky footer content here.</p>
       </div>
-    </footer>
+    </footer>-->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -85,6 +85,10 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/rxjs/dist/rx.all.js"></script>
+    <script src="bower_components/angular-rx/dist/rx.angular.js"></script>
+    <script src="bower_components/angular-oboe/dist/angular-oboe.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -92,9 +96,11 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/dockerstartcontroller.js"></script>
     <script src="scripts/controllers/dockermaincontroller.js"></script>
+    <script src="scripts/controllers/dockercontainerdetailcontroller.js"></script>
     <script src="scripts/services/dockermiscservice.js"></script>
     <script src="scripts/services/dockercontainerservice.js"></script>
-    <script src="scripts/services/dockerimagesservice.js"></script>
+    <script src="scripts/services/dockerimageservice.js"></script>
+    <script src="scripts/services/configurationservice.js"></script>
     <!-- endbuild -->
 </body>
 </html>

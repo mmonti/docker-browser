@@ -1,46 +1,71 @@
+<div class="row text-center" ng-show="loading">
+  <h3><i class="fa fa-refresh fa-spin" style="margin-right:10px"></i>Loading docker information ...</h3> 
+</div>
+
+<div ng-hide="loading">
 <div class="row">
   <ul class="breadcrumb">
-    <li class="active">Explore</li>
+    <li>EXPLORE</li>
+    <li class="active">DASHBOARD</li>
   </ul>
 </div>
 
 <div class="row">
   <div class="col-sm-4 images-container">
-    <h3 class="title"><i class="fa fa-cube"></i>Docker Images</h3>
+    <h3 class="title"><i class="fa fa-cube"></i>Docker Images<span class="pull-right badge" style="margin-top: 8px; background-color: lightgray">{{images.length}}</span></h3>
     
-    <div class="" style="overflow-y: auto; height:100vh;">
+    <div class="alert alert-warning" role="alert" ng-show="images.length == 0">
+      <i class="fa fa-exclamation-circle" style="margin-right: 8px;"></i>We couldn't find available images...
+    </div>
+    
+    <div style="overflow-y: auto;">
+      
       <div class="list-group">
-        <a class="list-group-item" ng-repeat="image in images">
+        <div class="list-group-item" ng-repeat="image in images">
           <h3 class="list-group-item-heading">
-            <span>{{ (image.RepoTags[0]).substring(0, (image.RepoTags[0]).indexOf(':')) }}</span>
+            <span>{{ image.name() }}</span>
             <i class="fa" ng-class="{'fa-caret-down': currentImage, 'fa-caret-right': !currentImage}" ng-click="currentImage = !currentImage"></i>
           </h3>
           <div ng-show="currentImage">
-          <p><strong>ID:</strong> {{image.Id.substring(0, 50)}}...</p>
-          <p><button class="btn btn-success btn-xs">START</button></p>
-          <p class="list-group-item-text"></p>
-          <p>
+            <p><strong>ID:</strong> {{image.Id.substring(0, 50)}}...</p>
+            <p><button class="btn btn-success btn-xs" ng-click="startContainer( image.name() )">START</button></p>
+            <p class="list-group-item-text"></p>
             <span class="label label-primary tag" ng-repeat="tag in image.RepoTags">{{tag}}</span>
-          </p>
           </div>
-        </a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="col-sm-5 container-container">
+    <h3 class="title"><i class="fa fa-cogs"></i>Running Containers<span class="pull-right badge" style="margin-top: 8px; background-color: lightgray">{{containers.length}}</span></h3>
+    
+    <div class="alert alert-warning" role="alert" ng-show="containers.length == 0">
+      <i class="fa fa-exclamation-circle" style="margin-right: 8px;"></i>There's no containers running...
+    </div>
+    
+    <div class="list-group" ng-hide="containers.length == 0">
+      <div class="list-group-item" ng-repeat="container in containers">
+        <h4 class="list-group-item-heading">
+          <a ui-sref="containerDetail({id: container.Id})"><span><strong>{{ container.Image }}</strong></span></a>
+        </h4>
+        <p><span><i class="fa fa-check-circle text-success" style="margin-right: 8px;"></i>{{ container.Status }}</span></p>
+        <p class="list-group-item-text">
+          <span ng-repeat="port in container.Ports">
+            <span class="label label-primary">{{port.key}}</span>
+          </span>
+        </p>
+        <p class="list-group-item-text">
+          <button class="btn btn-xs btn-primary">START</button>
+          <button class="btn btn-xs btn-primary" ng-click="stopContainer(container.Id)">STOP</button>
+          <button class="btn btn-xs btn-primary">PAUSE</button>
+          <button class="btn btn-xs btn-primary">RESTART</button>
+        </p>
       </div>
     </div>
-    
-  </div>
-  <div class="col-sm-5 container-container">
-    <h3 class="title"><i class="fa fa-cogs"></i>Running Containers</h3>
-    
-    <div class="list-group">
-      <a href="#" class="list-group-item">
-        <h4 class="list-group-item-heading">List group item heading</h4>
-        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-      </a>
-      <a href="#" class="list-group-item">
-        <h4 class="list-group-item-heading">List group item heading</h4>
-        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-      </a>
-    </div>
+
+ 
     
   </div>
   <div class="col-sm-3">
@@ -70,13 +95,13 @@
     
     <div class="panel panel-default">
       <div class="panel-body">
-        Basic panel
+        <p>Docker</p>
+        <div class="row">
+          <div class="col-sm-12"><strong>API Version:</strong> {{version.ApiVersion}}</div>
+        </div>
       </div>
     </div>
-    
-    <h4>Docker</h4>
-    <div class="row">
-      <div class="col-sm-12"><strong>API Version:</strong> {{version.ApiVersion}}</div>
-    </div>
+
   </div>
+</div>
 </div>

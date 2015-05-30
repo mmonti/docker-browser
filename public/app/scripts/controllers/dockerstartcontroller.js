@@ -9,6 +9,5 @@
  * Controller of the dockerBrowserApp
  */
 angular.module('dockerBrowserApp')
-  .controller('dockerStartController', function ($scope, $location, dockerMiscService) {
-    
+  .controller('dockerStartController', function ($scope, $location, dockerMiscService) { 
 });

@@ -8,23 +8,32 @@
  * Service in the dockerBrowserApp.
  */
 angular.module('dockerBrowserApp')
-  .service('dockerMiscService', function ($http) {
+  .service('dockerMiscService', function ($http, configurationService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     return {
       ping : function(params) {
-        return $http.get('http://localhost:4243/_ping');
+        return $http.get(configurationService.getService('/_ping'));
       },
       version : function(params) {
-        return $http.get('http://localhost:4243/version');
+        return $http.get(configurationService.getService('/version'));
       },
       info : function(params) {
-        return $http.get('http://localhost:4243/info');
+        return $http.get(configurationService.getService('/info'));
       },
-      startDocker : function(params){
-        return $http.get('http://localhost:8080/startDockerService');
+      events : function(since){
+        return $http.get(configurationService.getService('/events?since='+since));
       },
-      stopDocker : function(params){
-        return $http.get('http://localhost:8080/stopDockerService');
+      start : function(params){
+        return $http.get(configurationService.getService({
+          host: 'localhost',
+          port: 8080
+        }, '/startDockerService'));
+      },
+      stop : function(params){
+        return $http.get(configurationService.getService({
+          host: 'localhost',
+          port: 8080
+        }, '/stopDockerService'));
       }
     };
   });
